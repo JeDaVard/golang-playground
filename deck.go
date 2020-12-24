@@ -1,18 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"math/rand"
+	"strings"
+	"time"
+)
 
 type deck []string
-
-func (d deck) print() {
-	for i, card := range d {
-		fmt.Println(i, card)
-	}
-}
-
-func (d deck) addCard(card string) deck {
-	return append(d, card)
-}
 
 func newDeck() deck {
 	cards := deck{}
@@ -30,4 +24,23 @@ func newDeck() deck {
 
 func (d deck) deal(handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() (string, deck) {
+	return strings.Join([]string(d), ",\n"), d
+}
+
+func (d deck) toArr(data string) deck {
+	return strings.Split(data, ",\n")
+}
+
+func (d deck) shuffle() deck {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
+	return d
 }

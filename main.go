@@ -1,16 +1,12 @@
 package main
 
 func main() {
-	cards := newDeck()
-	cards.addCard(newCard("red"))
-	cards.addCard("King")
+	deck := newDeck()
+	str, de := deck.toString()
+	deckk := de.toArr(str)
 
-	hand, restDeck := cards.deal(4)
+	ioOperation.save("sdfgh", deckk)
 
-	hand.print()
-	restDeck.print()
-
-	// cards.print()
 }
 
 func newCard(color string) string {
